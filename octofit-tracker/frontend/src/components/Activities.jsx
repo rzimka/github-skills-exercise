@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeApiPayload } from './apiClient';
 
+const codespacesEndpointFormat = '-8000.app.github.dev/api/activities';
+
 
 function Activities() {
   const [items, setItems] = useState([]);
@@ -31,7 +33,8 @@ function Activities() {
         }
       } catch (fetchError) {
         if (!cancelled) {
-          setError(fetchError instanceof Error ? fetchError.message : 'Unable to load activities');
+          const fallbackMessage = `Unable to load activities. Expected Codespaces endpoint format: ${codespacesEndpointFormat}`;
+          setError(fetchError instanceof Error ? fetchError.message : fallbackMessage);
         }
       } finally {
         if (!cancelled) {

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeApiPayload } from './apiClient';
 
+const codespacesEndpointFormat = '-8000.app.github.dev/api/leaderboard';
+
 function Leaderboard() {
   const [items, setItems] = useState([]);
   const [count, setCount] = useState(0);
@@ -29,7 +31,8 @@ function Leaderboard() {
         }
       } catch (fetchError) {
         if (!cancelled) {
-          setError(fetchError instanceof Error ? fetchError.message : 'Unable to load leaderboard');
+          const fallbackMessage = `Unable to load leaderboard. Expected Codespaces endpoint format: ${codespacesEndpointFormat}`;
+          setError(fetchError instanceof Error ? fetchError.message : fallbackMessage);
         }
       } finally {
         if (!cancelled) {

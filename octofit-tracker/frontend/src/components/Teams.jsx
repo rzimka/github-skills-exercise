@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeApiPayload } from './apiClient';
 
+const codespacesEndpointFormat = '-8000.app.github.dev/api/teams';
+
 function Teams() {
   const [items, setItems] = useState([]);
   const [count, setCount] = useState(0);
@@ -29,7 +31,8 @@ function Teams() {
         }
       } catch (fetchError) {
         if (!cancelled) {
-          setError(fetchError instanceof Error ? fetchError.message : 'Unable to load teams');
+          const fallbackMessage = `Unable to load teams. Expected Codespaces endpoint format: ${codespacesEndpointFormat}`;
+          setError(fetchError instanceof Error ? fetchError.message : fallbackMessage);
         }
       } finally {
         if (!cancelled) {
