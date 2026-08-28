@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { buildApiUrl, normalizeApiPayload } from './apiClient';
 
+
 function Activities() {
   const [items, setItems] = useState([]);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  
   useEffect(() => {
     let cancelled = false;
 
