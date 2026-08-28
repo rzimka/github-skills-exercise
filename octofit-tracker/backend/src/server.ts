@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import db from './config/database';
 import User from './models/User';
 import Team from './models/Team';
@@ -15,6 +16,7 @@ const apiBaseUrl = codespaceName
 
 
   
+app.use(cors());
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
